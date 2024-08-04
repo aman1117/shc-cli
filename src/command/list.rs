@@ -51,7 +51,7 @@ pub async fn list_files(
         format!("{:.3} MB", file.size as f64 / 1024.0 / 1024.0)
     };
     let visibility = if file.is_public { "Public" } else { "Private" };
-    let shareable_link = format!("https://shc.ajaysharma.dev/share/{}", file.id);
+    let shareable_link = format!("https://shc-frontend-two.vercel.app/share/{}", file.id);
 
     console::Term::stdout()
         .write_line( format!(

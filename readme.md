@@ -5,7 +5,7 @@
 ## Install
 
 ```console
-curl -fsSl https://shc.ajaysharma.dev/install.sh | sh
+curl -fsSl https:/shc-frontend-two.vercel.app/install.sh | sh
 ```
 
 ## How to use?
@@ -17,7 +17,7 @@ Commands:
     login       login to use shc
     add         upload file
     list        list all files
-    remove      remove file
+    remove      remove filef
     visibility  toggle file's visibility
     rename      rename file
     get         download file

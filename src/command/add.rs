@@ -133,9 +133,9 @@ pub async fn upload_file(
             match res {
                 Ok(_) => {
                     print!(
-                "\n{} added successfully\nShcFile Link: https://shc.ajaysharma.dev/share/{}\n",
-                file_name, file_id
-            );
+                        "\n{} added successfully\nShcFile Link: https:/shc-frontend-two.vercel.app/share/{}\n",
+                        file_name, file_id
+                    );
                 }
                 Err(_) => {
                     print!("Failed to add file");

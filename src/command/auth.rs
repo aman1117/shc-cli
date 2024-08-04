@@ -46,6 +46,8 @@ pub async fn login(user_config: &mut UserConfig) -> Result<(), Box<dyn std::erro
         .send()
         .await?;
 
+    // print!("{:?}", res);
+
     pb.finish_and_clear();
 
     let otp = dialoguer::Input::<String>::new()
