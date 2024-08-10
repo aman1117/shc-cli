@@ -1,10 +1,12 @@
 use clap::{arg, Command};
 
+// are we defining the Command struct here and then returning it?
 pub fn cli() -> Command {
     Command::new("shc")
         .about("share code in minimum time")
         .subcommand_required(false)
         .arg_required_else_help(false)
+        // allow_external_subcommands is used to allow subcommands to be passed as arguments ✅
         .allow_external_subcommands(true)
         .subcommand(Command::new("login").about("login to use shc"))
         .subcommand(

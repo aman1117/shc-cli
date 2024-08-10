@@ -1,5 +1,8 @@
+// what is serde?
 use serde::{Deserialize, Serialize};
 
+// what is the meaning of #[derive(Serialize, Deserialize, Debug)]?
+// read about traits in rust ✅
 #[derive(Serialize, Deserialize, Debug)]
 pub struct User {
     pub id: String,
