@@ -8,8 +8,12 @@ use crate::user_config::UserConfig;
 
 pub struct ApiClient {
     api_base_url: String,
+
+    // why we tried_refreshing_token?
     tried_refreshing_token: bool,
     user_config: UserConfig,
+
+    // what is meaning of reqwest::Client?
     client: reqwest::Client,
 }
 
@@ -18,21 +22,27 @@ impl ApiClient {
         ApiClient {
             api_base_url: SHC_BACKEND_API_BASE_URL.to_string(),
             tried_refreshing_token: false,
+            // if we have not assigned anything to user_config then what will be the value of user_config?
             user_config,
             client: reqwest::Client::new(),
         }
     }
 
+    // what does this function do? do we have to explicitly pass  &mut self?
     pub fn login_again(&mut self) {
         self.tried_refreshing_token = true;
         println!("Logged out, please login again");
         // TODO: logout - clear config
         // TODO: run login command (can we continue after login command?)
+
+        // what is std and what is process?
         std::process::exit(1);
     }
 
     async fn refresh_token(&mut self) -> Result<(), Box<dyn std::error::Error>> {
+        // what is the use of self here?
         if self.tried_refreshing_token {
+            // what is the use of clear here?
             self.user_config.clear();
             self.login_again();
         }
@@ -42,9 +52,11 @@ impl ApiClient {
             .get(format!("{}/auth/refresh-token", self.api_base_url))
             .header(
                 "Authorization",
+                // what is meaning of as_ref and unwrap?
                 self.user_config.user.refresh_token.as_ref().unwrap(),
             )
             .send()
+            // what is meaning of await? ?
             .await?;
 
         match res.status() {
@@ -115,16 +127,19 @@ impl ApiClient {
             .send()
             .await?;
 
+        // explain below match block in detail
         match res.status() {
             reqwest::StatusCode::OK => Ok(()),
             reqwest::StatusCode::UNAUTHORIZED => {
                 self.refresh_token().await?;
                 return self.remove_file(file_id).await;
             }
+            // what is meaning of below code in detail ?
             _ => Err(Error::new(ErrorKind::Other, "Something went wrong").into()),
         }
     }
 
+    // what is #[async_recursion]?
     #[async_recursion]
     pub async fn toggle_file_visibility(
         &mut self,
@@ -163,6 +178,7 @@ impl ApiClient {
     ) -> Result<(), Box<dyn std::error::Error>> {
         let access_token = self.user_config.user.access_token.as_ref().unwrap();
 
+        // self is &mut ApiClient?
         let res = self
             .client
             .patch(format!(
@@ -170,6 +186,7 @@ impl ApiClient {
                 self.api_base_url, file_id
             ))
             .header("Authorization", access_token)
+            // meaning of &json!() ?
             .json(&json!({
                 "name": new_name,
             }))
@@ -264,6 +281,7 @@ impl ApiClient {
 
         let res = self
             .client
+            // why and how we use format! here?
             .get(format!("{}/api/files/{}", self.api_base_url, file_id))
             .header("Authorization", access_token)
             .send()
@@ -286,6 +304,7 @@ impl ApiClient {
     pub async fn increment_download_count(
         &mut self,
         file_id: &str,
+        // how to use Result Give some simple code?
     ) -> Result<(), Box<dyn std::error::Error>> {
         let access_token = self.user_config.user.access_token.as_ref().unwrap();
 

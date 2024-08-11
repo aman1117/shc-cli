@@ -10,6 +10,8 @@ mod utils;
 use std::path::PathBuf;
 
 use crate::api_client::ApiClient;
+
+// read them and understand them
 use crate::command::auth::{check_for_api_key, login, logout};
 use crate::user_config::UserConfig;
 
@@ -27,7 +29,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             check_for_api_key(&mut user_config).await?;
             let mut api_client = ApiClient::new(user_config);
             match matches.subcommand() {
-                
                 Some(("add", sub_matches)) => {
                     let file = sub_matches.get_one::<String>("FILE").expect("required");
                     let file_path = PathBuf::from(file);

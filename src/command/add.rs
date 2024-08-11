@@ -1,11 +1,23 @@
+// why is the use of indiciatif crate?
 use indicatif::{ProgressBar, ProgressStyle};
+
+// what is meaning of min?
 use std::cmp::min;
+
+// what is meaning of Path?
 use std::path::Path;
+
+// what is meaning of Duration?
 use std::time::Duration;
+
+// what is meaning of StreamExt?
 use tokio_stream::StreamExt;
+
+// what is meaning of ReaderStream?
 use tokio_util::io::ReaderStream;
 
 use crate::api_client;
+
 use crate::utils::zip_directory_recursive;
 
 pub async fn upload_file(

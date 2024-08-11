@@ -20,6 +20,7 @@ pub struct UserInfo {
 
 pub struct UserConfig {
     pub user: UserInfo,
+    // what is meaning of PathBuf? and what is config_path?
     pub config_path: PathBuf,
 }
 

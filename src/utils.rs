@@ -29,9 +29,11 @@ pub fn format_bytes(bytes: u64) -> String {
         _ => "YB",
     };
 
+    // meaning of {:.2} with example?
     format!("{:.2} {}", bytes, unit)
 }
 
+// leave it for now
 pub fn zip_directory_recursive(src_dir: &Path, size_limit: u64) -> io::Result<PathBuf> {
     let src_dir = fs::canonicalize(src_dir)?;
     let folder_name = src_dir.file_name().unwrap().to_string_lossy();
